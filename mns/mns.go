@@ -7,6 +7,7 @@ type MnsConfig struct {
 	AccessKeyId  string `json:"access_key"`
 	AccessSecret string `json:"access_secret"`
 	Name         string `json:"name"`
+	Name2        string `json:"name2"`
 }
 
 var (
@@ -26,6 +27,10 @@ func InitMns(conf MnsConfig) {
 	}
 }
 
+func GetMnsConfig() MnsConfig {
+	return mnsConfig
+}
+
 func GetMnsInstance() ali_mns.MNSClient {
 	if mnsClient != nil {
 		return mnsClient
@@ -41,6 +46,16 @@ func GetMnsQueue() ali_mns.AliMNSQueue {
 	}
 
 	queue := ali_mns.NewMNSQueue(mnsConfig.Name, mnsClient)
+
+	return queue
+}
+
+func GetMnsQueueByName(name string) ali_mns.AliMNSQueue {
+	if mnsClient == nil {
+		mnsClient = ali_mns.NewAliMNSClient(mnsConfig.Url, mnsConfig.AccessKeyId, mnsConfig.AccessSecret)
+	}
+
+	queue := ali_mns.NewMNSQueue(name, mnsClient)
 
 	return queue
 }
