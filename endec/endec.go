@@ -20,11 +20,11 @@ func NewBase64Endecoder() *Base64Endecoder {
 }
 
 func (this *Base64Endecoder) Encode(b []byte) string {
-	return base64.StdEncoding.EncodeToString(b)
+	return base64.URLEncoding.EncodeToString(b)
 }
 
 func (this *Base64Endecoder) Decode(b []byte) ([]byte, error) {
-	decoded, err := base64.StdEncoding.DecodeString(string(b))
+	decoded, err := base64.URLEncoding.DecodeString(string(b))
 	if err != nil {
 		return nil, err
 	}
